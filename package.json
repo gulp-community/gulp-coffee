@@ -1,0 +1,34 @@
+{
+  "name": "gulp-coffee",
+  "description": "Compile CoffeeScript files",
+  "version": "0.0.1",
+  "homepage": "http://github.com/wearefractal/gulp-coffee",
+  "repository": "git://github.com/wearefractal/gulp-coffee.git",
+  "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
+  "main": "./index.js",
+  "keywords": [
+    "gulpplugin"
+  ],
+  "dependencies": {
+    "event-stream": "*",
+    "clone": "*",
+    "coffee-script": "~1.6.3",
+    "gulp-util": "0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/wearefractal/gulp-coffee/raw/master/LICENSE"
+    }
+  ]
+}
