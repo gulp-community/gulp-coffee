@@ -4,11 +4,11 @@
 
 <table>
 <tr> 
-<td>Package</td><td>gulp-concat</td>
+<td>Package</td><td>gulp-coffee</td>
 </tr>
 <tr>
 <td>Description</td>
-<td>Concatenates files</td>
+<td>Comiles CoffeeScript</td>
 </tr>
 <tr>
 <td>Node Version</td>
@@ -19,18 +19,18 @@
 ## Usage
 
 ```javascript
-var concat = require('gulp-concat');
+var coffee = require('gulp-coffee');
 
-gulp.task('scripts', function() {
-  gulp.files('./lib/*.js')
-    .pipe(concat({fileName: "all.js"}))
-    .pipe(gulp.folder('./dist/'))
+gulp.task('coffee', function() {
+  gulp.files('./src/*.coffee')
+    .pipe(coffee({bare: true}))
+    .pipe(gulp.folder('./public/'))
 });
 ```
 
 ## Options
 
-You can pass in a splitter option which defaults to `\r\n`. fileName is mandatory.
+The options object supports the same options as the standard CoffeeScript compiler 
 
 ## LICENSE
 
