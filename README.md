@@ -8,7 +8,7 @@
 </tr>
 <tr>
 <td>Description</td>
-<td>Comiles CoffeeScript</td>
+<td>Compiles CoffeeScript</td>
 </tr>
 <tr>
 <td>Node Version</td>
