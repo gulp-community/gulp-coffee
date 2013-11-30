@@ -28,5 +28,26 @@ describe('gulp-coffee', function() {
       });
       stream.write(fakeFile);
     });
+
+    it('should emit errors correctly', function(done) {
+      var stream = coffee({bare: true});
+      var fakeFile = {
+        path: "/home/contra/test/file.coffee",
+        shortened: "file.coffee",
+        contents: new Buffer("if a()\r\n  then huh")
+      };
+
+      var expected = "";
+
+      stream.on('error', function(err){
+        err.message.indexOf(fakeFile.path).should.not.equal(-1);
+        done();
+      });
+      stream.on('data', function(newFile){
+        throw new Error("no file should have been emitted!");
+      });
+      stream.write(fakeFile);
+    });
+
   });
 });
