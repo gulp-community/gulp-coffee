@@ -22,9 +22,9 @@
 var coffee = require('gulp-coffee');
 
 gulp.task('coffee', function() {
-  gulp.files('./src/*.coffee')
+  gulp.src('./src/*.coffee')
     .pipe(coffee({bare: true}))
-    .pipe(gulp.folder('./public/'))
+    .pipe(gulp.dest('./public/'))
 });
 ```
 
