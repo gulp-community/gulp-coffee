@@ -1,7 +1,7 @@
-var es = require('event-stream'),
-  coffee = require('coffee-script'),
-  util = require('gulp-util'),
-  formatError = require('./lib/formatError');
+var es = require('event-stream');
+var coffee = require('coffee-script');
+var gutil = require('gulp-util');
+var formatError = require('./lib/formatError');
 
 module.exports = function(opt){
   function modifyFile(file, cb){
@@ -11,11 +11,9 @@ module.exports = function(opt){
       var newError = formatError(file, err);
       return cb(newError);
     }
-    file.path = util.replaceExtension(file.path, ".js");
-    file.shortened = util.replaceExtension(file.shortened, ".js");
+    file.path = gutil.replaceExtension(file.path, ".js");
     cb(null, file);
   }
 
   return es.map(modifyFile);
-
 };
