@@ -28,6 +28,25 @@ gulp.task('coffee', function() {
 });
 ```
 
+### Error handling
+
+```javascript
+var coffee = require('gulp-coffee');
+
+var coffeeStream = coffee({bare: true});
+
+// Catch gulp-coffee error
+coffeeStream.on('error', function(err) {
+    if(err) console.log(''+err);
+});
+
+gulp.task('coffee', function() {
+  gulp.src('./src/*.coffee')
+    .pipe(coffeeStream)
+    .pipe(gulp.dest('./public/'))
+});
+```
+
 ## Options
 
 The options object supports the same options as the standard CoffeeScript compiler 
