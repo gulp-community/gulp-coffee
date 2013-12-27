@@ -23,26 +23,7 @@ var coffee = require('gulp-coffee');
 
 gulp.task('coffee', function() {
   gulp.src('./src/*.coffee')
-    .pipe(coffee({bare: true}))
-    .pipe(gulp.dest('./public/'))
-});
-```
-
-### Error handling
-
-```javascript
-var coffee = require('gulp-coffee');
-
-var coffeeStream = coffee({bare: true});
-
-// Catch gulp-coffee error
-coffeeStream.on('error', function(err) {
-    if(err) console.log(''+err);
-});
-
-gulp.task('coffee', function() {
-  gulp.src('./src/*.coffee')
-    .pipe(coffeeStream)
+    .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(gulp.dest('./public/'))
 });
 ```
