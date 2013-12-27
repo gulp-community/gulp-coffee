@@ -23,9 +23,45 @@ var coffee = require('gulp-coffee');
 
 gulp.task('coffee', function() {
   gulp.src('./src/*.coffee')
-    .pipe(coffee({bare: true}))
+    .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(gulp.dest('./public/'))
 });
+```
+
+### Error handling
+
+gulp-coffee will emit an error for cases such as invalid coffeescript syntax. If uncaught, the error will crash gulp.
+
+You will need to attach a listener (i.e. `.on('error')`) for the error event emitted by gulp-coffee:
+
+```javascript
+var coffeeStream = coffee({bare: true});
+
+// Attach listener
+coffeeStream.on('error', function(err) {});
+```
+
+In addition, you may utilize [gulp-util](https://github.com/wearefractal/gulp-util)'s logging function:
+
+```javascript
+var gutil = require('gulp-util');
+
+// ...
+
+var coffeeStream = coffee({bare: true});
+
+// Attach listener
+coffeeStream.on('error', gutil.log);
+
+```
+
+Since `.on(...)` returns `this`, you can make you can compact it as inline code:
+
+```javascript
+
+gulp.src('./src/*.coffee')
+  .pipe(coffee({bare: true}).on('error', gutil.log))
+  // ...
 ```
 
 ## Options
