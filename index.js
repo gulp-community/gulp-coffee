@@ -5,9 +5,9 @@ var formatError = require('./lib/formatError');
 var Buffer = require('buffer').Buffer;
 
 module.exports = function(opt){
-  function modifyFile(file, cb){
-    if (file.isNull()) return cb(null, file); // pass along
-    if (file.isStream()) return cb(new Error("gulp-coffee: Streaming not supported"));
+  function modifyFile(file){
+    if (file.isNull()) return this.emit('data', file); // pass along
+    if (file.isStream()) return this.emit('error', new Error("gulp-coffee: Streaming not supported"));
 
     var str = file.contents.toString('utf8');
 
@@ -15,11 +15,11 @@ module.exports = function(opt){
       file.contents = new Buffer(coffee.compile(str, opt));
     } catch (err) {
       var newError = formatError(file, err);
-      return cb(newError);
+      return this.emit('error', newError);
     }
     file.path = gutil.replaceExtension(file.path, ".js");
-    cb(null, file);
+    this.emit('data', file);
   }
 
-  return es.map(modifyFile);
+  return es.through(modifyFile);
 };
