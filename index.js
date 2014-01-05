@@ -17,8 +17,7 @@ module.exports = function(opt){
       options = {
         bare: opt.bare != null ? !!opt.bare : false,
         literate: opt.literate != null ? !!opt.literate : false,
-        sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false,
-        separator: opt.separator != null ? opt.separator : gutil.linefeed
+        sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false
       }
     }
 
