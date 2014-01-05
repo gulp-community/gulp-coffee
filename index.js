@@ -11,8 +11,18 @@ module.exports = function(opt){
 
     var str = file.contents.toString('utf8');
 
+    var options = {};
+
+    if ( opt ) {
+      options = {
+        bare: opt.bare != null ? !!opt.bare : false,
+        literate: opt.literate != null ? !!opt.literate : false,
+        sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false
+      }
+    }
+
     try {
-      file.contents = new Buffer(coffee.compile(str, opt));
+      file.contents = new Buffer(coffee.compile(str, options));
     } catch (err) {
       var newError = formatError(file, err);
       return this.emit('error', newError);
