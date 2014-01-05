@@ -2,6 +2,7 @@ var coffee = require('../');
 var should = require('should');
 var coffeescript = require('coffee-script');
 var gutil = require('gulp-util');
+var fs = require('fs');
 require('mocha');
 
 describe('gulp-coffee', function() {
@@ -52,5 +53,100 @@ describe('gulp-coffee', function() {
       stream.write(fakeFile);
     });
 
+    it('should compile a file (no bare)', function(done) {
+      var stream = coffee();
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/grammar.coffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/grammar.coffee' )
+      });
+
+      stream.on('error', done);
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        newFile.path.should.equal("test/fixtures/grammar.js");
+        newFile.relative.should.equal("grammar.js");
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/grammar.js', 'utf8'));
+        done();
+      });
+      stream.write(fakeFile);
+    });
+
+    it('should compile a file (with bare)', function(done) {
+      var stream = coffee({bare: true});
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/grammar.coffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/grammar.coffee' )
+      });
+
+      stream.on('error', done);
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        newFile.path.should.equal("test/fixtures/grammar.js");
+        newFile.relative.should.equal("grammar.js");
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/grammar-bare.js', 'utf8'));
+        done();
+      });
+      stream.write(fakeFile);
+    });
+
+    it('should compile a literate file', function(done) {
+      var stream = coffee({literate: true});
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/journo.litcoffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/journo.litcoffee' )
+      });
+
+      stream.on('error', done);
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        newFile.path.should.equal("test/fixtures/journo.js");
+        newFile.relative.should.equal("journo.js");
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/journo.js', 'utf8'));
+        done();
+      });
+      stream.write(fakeFile);
+    });
+
+    it('should compile a literate file (with bare)', function(done) {
+      var stream = coffee({literate: true, bare: true});
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/journo.litcoffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/journo.litcoffee' )
+      });
+
+      stream.on('error', done);
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        newFile.path.should.equal("test/fixtures/journo.js");
+        newFile.relative.should.equal("journo.js");
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/journo-bare.js', 'utf8'));
+        done();
+      });
+      stream.write(fakeFile);
+    });
   });
 });
