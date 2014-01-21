@@ -3,6 +3,7 @@ var coffee = require('coffee-script');
 var gutil = require('gulp-util');
 var formatError = require('./lib/formatError');
 var Buffer = require('buffer').Buffer;
+var path = require('path');
 
 module.exports = function(opt){
   function modifyFile(file){
@@ -10,6 +11,7 @@ module.exports = function(opt){
     if (file.isStream()) return this.emit('error', new Error("gulp-coffee: Streaming not supported"));
 
     var str = file.contents.toString('utf8');
+    var dest = gutil.replaceExtension(file.path, ".js");
 
     var options = {
         literate: /\.(litcoffee|coffee\.md)$/.test(file.path)
@@ -19,17 +21,28 @@ module.exports = function(opt){
       options = {
         bare: opt.bare != null ? !!opt.bare : false,
         literate: opt.literate != null ? !!opt.literate : options.literate,
-        sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false
+        sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false,
+        sourceFiles: [path.basename(file.path)],
+        generatedFile: path.basename(dest)
       }
     }
 
     try {
-      file.contents = new Buffer(coffee.compile(str, options));
+      data = coffee.compile(str, options);
     } catch (err) {
       var newError = formatError(file, err);
       return this.emit('error', newError);
     }
-    file.path = gutil.replaceExtension(file.path, ".js");
+
+    if (options.sourceMap) {
+      sourceMapFile = file.clone();
+      sourceMapFile.path = dest + '.map';
+      sourceMapFile.contents = new Buffer(data.v3SourceMap);
+      this.emit('data', sourceMapFile);
+      data = data.js + "\n/*\n//@ sourceMappingURL=" + path.basename(sourceMapFile.path) + "\n*/\n";
+    }
+    file.contents = new Buffer(data);
+    file.path = dest;
     this.emit('data', file);
   }
 

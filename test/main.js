@@ -101,6 +101,60 @@ describe('gulp-coffee', function() {
       stream.write(fakeFile);
     });
 
+    it('should compile a file with source map', function(done) {
+      var stream = coffee({sourceMap: true});
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/grammar.coffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/grammar.coffee' )
+      });
+
+      stream.on('error', done);
+
+      expectedFilenames = ['grammar.js.map', 'grammar.js']
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        expectedFilename = expectedFilenames.shift()
+        newFile.path.should.equal("test/fixtures/" + expectedFilename);
+        newFile.relative.should.equal(expectedFilename);
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/map-' + expectedFilename, 'utf8'));
+        if(!expectedFilenames.length) done();
+      });
+      stream.write(fakeFile);
+    });
+
+    it('should compile a file with bare and with source map', function(done) {
+      var stream = coffee({bare: true, sourceMap: true});
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/grammar.coffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/grammar.coffee' )
+      });
+
+      stream.on('error', done);
+
+      expectedFilenames = ['grammar.js.map', 'grammar.js']
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        expectedFilename = expectedFilenames.shift()
+        newFile.path.should.equal("test/fixtures/" + expectedFilename);
+        newFile.relative.should.equal(expectedFilename);
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/map-bare-' + expectedFilename, 'utf8'));
+        if(!expectedFilenames.length) done();
+      });
+      stream.write(fakeFile);
+    });
+
     it('should compile a literate file', function(done) {
       var stream = coffee({literate: true});
       var fakeFile = new gutil.File({
@@ -169,6 +223,60 @@ describe('gulp-coffee', function() {
         newFile.relative.should.equal("journo.js");
         String(newFile.contents).should.equal(fs.readFileSync('test/expected/journo-bare.js', 'utf8'));
         done();
+      });
+      stream.write(fakeFile);
+    });
+
+    it('should compile a literate file with source map', function(done) {
+      var stream = coffee({literate: true, sourceMap: true});
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/journo.litcoffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/journo.litcoffee' )
+      });
+
+      stream.on('error', done);
+
+      expectedFilenames = ['journo.js.map', 'journo.js']
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        expectedFilename = expectedFilenames.shift()
+        newFile.path.should.equal("test/fixtures/" + expectedFilename);
+        newFile.relative.should.equal(expectedFilename);
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/map-' + expectedFilename, 'utf8'));
+        if(!expectedFilenames.length) done();
+      });
+      stream.write(fakeFile);
+    });
+
+    it('should compile a literate file with bare and with source map', function(done) {
+      var stream = coffee({literate: true, bare: true, sourceMap: true});
+      var fakeFile = new gutil.File({
+        path: "test/fixtures/journo.litcoffee",
+        base: "test/fixtures",
+        cwd: "test/",
+        contents: fs.readFileSync( 'test/fixtures/journo.litcoffee' )
+      });
+
+      stream.on('error', done);
+
+      expectedFilenames = ['journo.js.map', 'journo.js']
+      stream.on('data', function(newFile){
+        should.exist(newFile);
+        should.exist(newFile.path);
+        should.exist(newFile.relative);
+        should.exist(newFile.contents);
+
+        expectedFilename = expectedFilenames.shift()
+        newFile.path.should.equal("test/fixtures/" + expectedFilename);
+        newFile.relative.should.equal(expectedFilename);
+        String(newFile.contents).should.equal(fs.readFileSync('test/expected/map-bare-' + expectedFilename, 'utf8'));
+        if(!expectedFilenames.length) done();
       });
       stream.write(fakeFile);
     });
