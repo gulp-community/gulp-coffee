@@ -11,12 +11,14 @@ module.exports = function(opt){
 
     var str = file.contents.toString('utf8');
 
-    var options = {};
+    var options = {
+        literate: /\.(litcoffee|coffee\.md)$/.test(file.path)
+    };
 
     if ( opt ) {
       options = {
         bare: opt.bare != null ? !!opt.bare : false,
-        literate: opt.literate != null ? !!opt.literate : false,
+        literate: opt.literate != null ? !!opt.literate : options.literate,
         sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false
       }
     }
