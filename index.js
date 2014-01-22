@@ -35,9 +35,12 @@ module.exports = function(opt){
     }
 
     if (options.sourceMap) {
-      sourceMapFile = file.clone();
-      sourceMapFile.path = dest + '.map';
-      sourceMapFile.contents = new Buffer(data.v3SourceMap);
+      sourceMapFile = new gutil.File({
+        cwd: file.cwd,
+        base: file.base,
+        path: dest + '.map',
+        contents: new Buffer(data.v3SourceMap)
+      });
       this.emit('data', sourceMapFile);
       data = data.js + "\n/*\n//@ sourceMappingURL=" + path.basename(sourceMapFile.path) + "\n*/\n";
     }
