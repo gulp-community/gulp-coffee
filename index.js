@@ -4,8 +4,8 @@ var gutil = require('gulp-util');
 var Buffer = require('buffer').Buffer;
 var path = require('path');
 
-module.exports = function(opt){
-  function modifyFile(file){
+module.exports = function (opt) {
+  function modifyFile(file) {
     if (file.isNull()) return this.emit('data', file); // pass along
     if (file.isStream()) return this.emit('error', new Error("gulp-coffee: Streaming not supported"));
 
@@ -13,14 +13,14 @@ module.exports = function(opt){
     var dest = gutil.replaceExtension(file.path, ".js");
 
     var options = {
-        literate: /\.(litcoffee|coffee\.md)$/.test(file.path)
+      literate: /\.(litcoffee|coffee\.md)$/.test(file.path)
     };
 
-    if ( opt ) {
+    if (opt) {
       options = {
-        bare: opt.bare != null ? !!opt.bare : false,
-        literate: opt.literate != null ? !!opt.literate : options.literate,
-        sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false,
+        bare: opt.bare != null ? !! opt.bare : false,
+        literate: opt.literate != null ? !! opt.literate : options.literate,
+        sourceMap: opt.sourceMap != null ? !! opt.sourceMap : false,
         filename: file.path,
         sourceFiles: [path.basename(file.path)],
         generatedFile: path.basename(dest)
