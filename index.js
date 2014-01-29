@@ -1,7 +1,6 @@
 var es = require('event-stream');
 var coffee = require('coffee-script');
 var gutil = require('gulp-util');
-var formatError = require('./lib/formatError');
 var Buffer = require('buffer').Buffer;
 var path = require('path');
 
@@ -22,6 +21,7 @@ module.exports = function(opt){
         bare: opt.bare != null ? !!opt.bare : false,
         literate: opt.literate != null ? !!opt.literate : options.literate,
         sourceMap: opt.sourceMap != null ? !!opt.sourceMap : false,
+        filename: file.path,
         sourceFiles: [path.basename(file.path)],
         generatedFile: path.basename(dest)
       }
@@ -30,8 +30,7 @@ module.exports = function(opt){
     try {
       data = coffee.compile(str, options);
     } catch (err) {
-      var newError = formatError(file, err);
-      return this.emit('error', newError);
+      return this.emit('error', new Error(err));
     }
 
     if (options.sourceMap) {
