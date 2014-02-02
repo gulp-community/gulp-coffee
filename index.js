@@ -41,7 +41,7 @@ module.exports = function (opt) {
         contents: new Buffer(data.v3SourceMap)
       });
       this.emit('data', sourceMapFile);
-      data = data.js + "\n/*\n//@ sourceMappingURL=" + path.basename(sourceMapFile.path) + "\n*/\n";
+      data = data.js + "\n/*\n//# sourceMappingURL=" + path.basename(sourceMapFile.path) + "\n*/\n";
     }
     file.contents = new Buffer(data);
     file.path = dest;

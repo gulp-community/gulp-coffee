@@ -26,7 +26,7 @@ describe('gulp-coffee', function() {
           newPaths.unshift(newPath + '.map');
           expected = [
             expected.v3SourceMap,
-            expected.js + "\n/*\n//@ sourceMappingURL=" + path.basename(newPaths[0]) + "\n*/\n"
+            expected.js + "\n/*\n//# sourceMappingURL=" + path.basename(newPaths[0]) + "\n*/\n"
           ];
         } else {
           expected = [expected];
