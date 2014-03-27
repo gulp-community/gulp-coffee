@@ -132,6 +132,28 @@ describe('gulp-coffee', function() {
         .write(createFile(filepath, contents));
     });
 
+    it('should compile a file (no header)', function(done) {
+      var filepath = "test/fixtures/grammar.coffee";
+      var contents = new Buffer(fs.readFileSync(filepath));
+      var expected = coffeescript.compile(String(contents), {header: false});
+
+      coffee()
+        .on('error', done)
+        .on('data', this.testData(expected, "test/fixtures/grammar.js", done))
+        .write(createFile(filepath, contents));
+    });
+
+    it('should compile a file (with header)', function(done) {
+      var filepath = "test/fixtures/grammar.coffee";
+      var contents = new Buffer(fs.readFileSync(filepath));
+      var expected = coffeescript.compile(String(contents), {header: true});
+
+      coffee({header: true})
+        .on('error', done)
+        .on('data', this.testData(expected, "test/fixtures/grammar.js", done))
+        .write(createFile(filepath, contents));
+    });
+
     it('should compile a literate file', function(done) {
       var filepath = "test/fixtures/journo.litcoffee";
       var contents = new Buffer(fs.readFileSync(filepath));
