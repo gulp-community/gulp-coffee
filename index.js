@@ -8,7 +8,8 @@ module.exports = function (opt) {
   function modifyFile(file) {
     if (file.isNull()) return this.emit('data', file); // pass along
     if (file.isStream()) return this.emit('error', new Error("gulp-coffee: Streaming not supported"));
-
+    
+    var data;
     var str = file.contents.toString('utf8');
     var dest = gutil.replaceExtension(file.path, ".js");
 
