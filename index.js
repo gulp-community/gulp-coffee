@@ -17,6 +17,7 @@ module.exports = function (opt) {
       literate: /\.(litcoffee|coffee\.md)$/.test(file.path)
     };
 
+    // TODO: this is horrible, figure out a better way to copy these options over
     if (opt) {
       options = {
         bare: opt.bare != null ? !! opt.bare : false,
@@ -27,7 +28,7 @@ module.exports = function (opt) {
         filename: file.path,
         sourceFiles: [path.basename(file.path)],
         generatedFile: path.basename(dest)
-      }
+      };
     }
 
     try {

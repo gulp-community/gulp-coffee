@@ -1,7 +1,7 @@
 {
   "name": "gulp-coffee",
   "description": "Compile CoffeeScript files",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "homepage": "http://github.com/wearefractal/gulp-coffee",
   "repository": "git://github.com/wearefractal/gulp-coffee.git",
   "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
@@ -10,9 +10,9 @@
     "gulpplugin"
   ],
   "dependencies": {
-    "event-stream": "~3.0.20",
+    "event-stream": "^3.0.20",
     "coffee-script": "~1.7.0",
-    "gulp-util": "~2.2.1"
+    "gulp-util": "^2.2.1"
   },
   "devDependencies": {
     "mocha": "*",
