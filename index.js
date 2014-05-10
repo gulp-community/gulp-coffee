@@ -29,16 +29,21 @@ module.exports = function (opt) {
       };
     }
 
+    if (file.sourceMap) options.sourceMap = true;
+
     try {
       data = coffee.compile(str, options);
     } catch (err) {
       return this.emit('error', new Error(err));
     }
 
-    if (file.sourceMap) options.makeSourceMaps = true;
-    if (data.v3SourceMap) file.applySourceMap(data.v3SourceMap);
+    if (data.v3SourceMap && file.applySourceMap) {
+      file.applySourceMap(data.v3SourceMap);
+      file.contents = new Buffer(data.js);
+    } else {
+      file.contents = new Buffer(data);
+    }
 
-    file.contents = new Buffer(data);
     file.path = dest;
     this.emit('data', file);
   }
