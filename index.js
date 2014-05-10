@@ -8,7 +8,7 @@ module.exports = function (opt) {
   function modifyFile(file) {
     if (file.isNull()) return this.emit('data', file); // pass along
     if (file.isStream()) return this.emit('error', new Error("gulp-coffee: Streaming not supported"));
-    
+
     var data;
     var str = file.contents.toString('utf8');
     var dest = gutil.replaceExtension(file.path, ".js");
@@ -23,8 +23,6 @@ module.exports = function (opt) {
         bare: opt.bare != null ? !! opt.bare : false,
         header: opt.header != null ? !! opt.header : false,
         literate: opt.literate != null ? !! opt.literate : options.literate,
-        sourceMap: opt.sourceMap != null ? !! opt.sourceMap : false,
-        sourceRoot: opt.sourceRoot != null ? !! opt.sourceRoot : false,
         filename: file.path,
         sourceFiles: [path.basename(file.path)],
         generatedFile: path.basename(dest)
@@ -37,16 +35,9 @@ module.exports = function (opt) {
       return this.emit('error', new Error(err));
     }
 
-    if (options.sourceMap) {
-      sourceMapFile = new gutil.File({
-        cwd: file.cwd,
-        base: file.base,
-        path: dest + '.map',
-        contents: new Buffer(data.v3SourceMap)
-      });
-      this.emit('data', sourceMapFile);
-      data = data.js + "\n/*\n//# sourceMappingURL=" + path.basename(sourceMapFile.path) + "\n*/\n";
-    }
+    if (file.sourceMap) options.makeSourceMaps = true;
+    if (data.v3SourceMap) file.applySourceMap(data.v3SourceMap);
+
     file.contents = new Buffer(data);
     file.path = dest;
     this.emit('data', file);
