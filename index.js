@@ -2,6 +2,7 @@ var es = require('event-stream');
 var coffee = require('coffee-script');
 var gutil = require('gulp-util');
 var Buffer = require('buffer').Buffer;
+var applySourceMap = require('vinyl-sourcemaps-apply');
 var path = require('path');
 
 module.exports = function (opt) {
@@ -37,8 +38,8 @@ module.exports = function (opt) {
       return this.emit('error', new Error(err));
     }
 
-    if (data.v3SourceMap && file.applySourceMap) {
-      file.applySourceMap(data.v3SourceMap);
+    if (data.v3SourceMap && file.sourceMap) {
+      applySourceMap(file, data.v3SourceMap);
       file.contents = new Buffer(data.js);
     } else {
       file.contents = new Buffer(data);
