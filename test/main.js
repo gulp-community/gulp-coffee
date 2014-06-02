@@ -4,6 +4,8 @@ var coffeescript = require('coffee-script');
 var gutil = require('gulp-util');
 var fs = require('fs');
 var path = require('path');
+var sourcemaps = require('gulp-sourcemaps');
+var stream = require('stream');
 require('mocha');
 
 var createFile = function (filepath, contents) {
@@ -20,14 +22,12 @@ describe('gulp-coffee', function() {
   describe('coffee()', function() {
     before(function() {
       this.testData = function (expected, newPath, done) {
-        var newPaths = [newPath];
+        var newPaths = [newPath],
+            expectedSourceMap;
 
         if (expected.v3SourceMap) {
-          newPaths.unshift(newPath + '.map');
-          expected = [
-            expected.v3SourceMap,
-            expected.js + "\n/*\n//# sourceMappingURL=" + path.basename(newPaths[0]) + "\n*/\n"
-          ];
+          expectedSourceMap = JSON.parse(expected.v3SourceMap);
+          expected = [expected.js];
         } else {
           expected = [expected];
         }
@@ -43,6 +43,13 @@ describe('gulp-coffee', function() {
           newFile.path.should.equal(this.newPath);
           newFile.relative.should.equal(path.basename(this.newPath));
           String(newFile.contents).should.equal(this.expected);
+
+          if (expectedSourceMap) {
+            // check whether the sources from the coffee have been
+            // applied to the files source map
+            newFile.sourceMap.sources
+              .should.containDeep(expectedSourceMap.sources);
+          }
 
           if (done && !expected.length) {
             done.call(this);
@@ -110,10 +117,13 @@ describe('gulp-coffee', function() {
         generatedFile: 'grammar.js'
       });
 
-      coffee({sourceMap: true})
-        .on('error', done)
-        .on('data', this.testData(expected, "test/fixtures/grammar.js", done))
-        .write(createFile(filepath, contents));
+
+      var stream = sourcemaps.init();
+      stream.write(createFile(filepath, contents))
+      stream
+        .pipe(coffee({}))
+          .on('error', done)
+          .on('data', this.testData(expected, "test/fixtures/grammar.js", done));
     });
 
     it('should compile a file with bare and with source map', function(done) {
@@ -126,10 +136,12 @@ describe('gulp-coffee', function() {
         generatedFile: 'grammar.js'
       });
 
-      coffee({bare: true, sourceMap: true})
-        .on('error', done)
-        .on('data', this.testData(expected, "test/fixtures/grammar.js", done))
-        .write(createFile(filepath, contents));
+      var stream = sourcemaps.init();
+      stream.write(createFile(filepath, contents));
+      stream
+        .pipe(coffee({bare: true}))
+          .on('error', done)
+          .on('data', this.testData(expected, "test/fixtures/grammar.js", done));
     });
 
     it('should compile a file (no header)', function(done) {
@@ -199,10 +211,12 @@ describe('gulp-coffee', function() {
         generatedFile: 'journo.js'
       });
 
-      coffee({literate: true, sourceMap: true})
-        .on('error', done)
-        .on('data', this.testData(expected, "test/fixtures/journo.js", done))
-        .write(createFile(filepath, contents));
+      var stream = sourcemaps.init();
+      stream.write(createFile(filepath, contents));
+      stream
+        .pipe(coffee({literate: true}))
+          .on('error', done)
+          .on('data', this.testData(expected, "test/fixtures/journo.js", done))
     });
 
     it('should compile a literate file with bare and with source map', function(done) {
@@ -216,10 +230,12 @@ describe('gulp-coffee', function() {
         generatedFile: 'journo.js'
       });
 
-      coffee({literate: true, bare: true, sourceMap: true})
-        .on('error', done)
-        .on('data', this.testData(expected, "test/fixtures/journo.js", done))
-        .write(createFile(filepath, contents));
+      var stream = sourcemaps.init();
+      stream.write(createFile(filepath, contents));
+      stream
+        .pipe(coffee({literate: true, bare: true}))
+          .on('error', done)
+          .on('data', this.testData(expected, "test/fixtures/journo.js", done));
     });
   });
 });

@@ -12,11 +12,13 @@
   "dependencies": {
     "event-stream": "^3.0.20",
     "coffee-script": "1.7.0",
-    "gulp-util": "^2.2.1"
+    "gulp-util": "^2.2.1",
+    "vinyl-sourcemaps-apply": "~0.1.1"
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "gulp-sourcemaps": "~0.3.1"
   },
   "scripts": {
     "test": "mocha"

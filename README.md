@@ -66,7 +66,37 @@ gulp.src('./src/*.coffee')
 
 ## Options
 
-The options object supports the same options as the standard CoffeeScript compiler 
+The options object supports the same options as the standard CoffeeScript compiler
+
+## Source maps
+
+gulp-coffee can be used in tandem with [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) to generate source maps for the coffee to javascript transition. You will need to initialize [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) prior to running the gulp-coffee compiler and write the source maps after.
+
+```javascript
+var sourcemaps = require('gulp-sourcemaps');
+
+gulp.src('./src/*.coffee')
+  .pipe(sourcemaps.init());
+    .pipe(coffee({ bare: true })).on('error', gutil.log)
+  .pipe(sourcemaps.write())
+  .pipe('./dest/js');
+
+// will write the source maps inline in the compiled javascript files
+```
+
+By default, [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) writes the source maps inline in the compiled javascript files. To write them to a separate file, specify a relative file path in the `sourcemaps.write()` function.
+
+```javascript
+var sourcemaps = require('gulp-sourcemaps');
+
+gulp.src('./src/*.coffee')
+  .pipe(sourcemaps.init());
+    .pipe(coffee({ bare: true })).on('error', gutil.log)
+  .pipe(sourcemaps.write('./maps'))
+  .pipe('./dest/js');
+
+// will write the source maps to ./dest/js/maps
+```
 
 ## LICENSE
 
