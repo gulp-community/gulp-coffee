@@ -77,7 +77,7 @@ var sourcemaps = require('gulp-sourcemaps');
 
 gulp.src('./src/*.coffee')
   .pipe(sourcemaps.init());
-    .pipe(coffee({ bare: true })).on('error', gutil.log)
+    .pipe(coffee())
   .pipe(sourcemaps.write())
   .pipe('./dest/js');
 
