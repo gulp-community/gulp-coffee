@@ -9,7 +9,7 @@ var merge = require('merge');
 
 module.exports = function (opt) {
   function transform(file, enc, cb) {
-    if (file.isNull()) cb(null, file); 
+    if (file.isNull()) return cb(null, file); 
     if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
 
     var data;
