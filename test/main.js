@@ -76,7 +76,6 @@ describe('gulp-coffee', function() {
 
       coffee({bare: true})
         .on('error', function(err) {
-          console.log(err);
           err.message.should.equal('unexpected then');
           done();
         })
