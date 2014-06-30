@@ -76,10 +76,10 @@ gulp-coffee can be used in tandem with [gulp-sourcemaps](https://github.com/flor
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.src('./src/*.coffee')
-  .pipe(sourcemaps.init());
-    .pipe(coffee())
+  .pipe(sourcemaps.init())
+  .pipe(coffee())
   .pipe(sourcemaps.write())
-  .pipe('./dest/js');
+  .pipe(gulp.dest('./dest/js'));
 
 // will write the source maps inline in the compiled javascript files
 ```
@@ -90,10 +90,10 @@ By default, [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) write
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.src('./src/*.coffee')
-  .pipe(sourcemaps.init());
-    .pipe(coffee({ bare: true })).on('error', gutil.log)
+  .pipe(sourcemaps.init())
+  .pipe(coffee({ bare: true })).on('error', gutil.log)
   .pipe(sourcemaps.write('./maps'))
-  .pipe('./dest/js');
+  .pipe(gulp.dest('./dest/js'));
 
 // will write the source maps to ./dest/js/maps
 ```
