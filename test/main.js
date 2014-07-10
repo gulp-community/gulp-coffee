@@ -76,7 +76,7 @@ describe('gulp-coffee', function() {
 
       coffee({bare: true})
         .on('error', function(err) {
-          err.message.indexOf(filepath).should.not.equal(-1);
+          err.message.should.equal('unexpected then');
           done();
         })
         .on('data', function(newFile) {
