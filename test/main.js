@@ -237,5 +237,17 @@ describe('gulp-coffee', function() {
           .on('error', done)
           .on('data', this.testData(expected, "test/fixtures/journo.js", done));
     });
+
+    it('should rename a literate markdown file', function(done) {
+      var filepath = "test/fixtures/journo.coffee.md";
+      var contents = new Buffer(fs.readFileSync(filepath));
+      var opts = {literate: true};
+      var expected = coffeescript.compile(String(contents), opts);
+
+      coffee(opts)
+        .on('error', done)
+        .on('data', this.testData(expected, "test/fixtures/journo.js", done))
+        .write(createFile(filepath, contents));
+    });
   });
 });

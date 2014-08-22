@@ -8,13 +8,18 @@ var path = require('path');
 var merge = require('merge');
 
 module.exports = function (opt) {
+  function replaceExtension(path) {
+    path = path.replace(/\.coffee\.md$/, '.litcoffee');
+    return gutil.replaceExtension(path, '.js');
+  }
+  
   function transform(file, enc, cb) {
     if (file.isNull()) return cb(null, file); 
     if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
 
     var data;
     var str = file.contents.toString('utf8');
-    var dest = gutil.replaceExtension(file.path, '.js');
+    var dest = replaceExtension(file.path);
 
     var options = merge({
       bare: false,
@@ -24,7 +29,7 @@ module.exports = function (opt) {
       literate: /\.(litcoffee|coffee\.md)$/.test(file.path),
       filename: file.path,
       sourceFiles: [file.relative],
-      generatedFile: gutil.replaceExtension(file.relative, '.js')
+      generatedFile: replaceExtension(file.relative)
     }, opt);
 
     try {
