@@ -1,11 +1,11 @@
 var through = require('through2');
 var coffee = require('coffee-script');
 var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
-var Buffer = require('buffer').Buffer;
 var applySourceMap = require('vinyl-sourcemaps-apply');
 var path = require('path');
 var merge = require('merge');
+
+var PluginError = gutil.PluginError;
 
 module.exports = function (opt) {
   function replaceExtension(path) {
