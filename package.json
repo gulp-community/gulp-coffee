@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "gulp-sourcemaps": "^1.1.1",
-    "mocha": "^1.21.4",
+    "mocha": "^2.0.0",
     "should": "^4.0.4"
   },
   "scripts": {
