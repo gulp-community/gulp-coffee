@@ -12,9 +12,9 @@ module.exports = function (opt) {
     path = path.replace(/\.coffee\.md$/, '.litcoffee');
     return gutil.replaceExtension(path, '.js');
   }
-  
+
   function transform(file, enc, cb) {
-    if (file.isNull()) return cb(null, file); 
+    if (file.isNull()) return cb(null, file);
     if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
 
     var data;
