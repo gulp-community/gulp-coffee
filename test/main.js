@@ -66,7 +66,7 @@ describe('gulp-coffee', function() {
 
       coffee(opts)
         .on('error', done)
-        .on('data', this.testData(expected, '/home/contra/test/file.js', done))
+        .on('data', this.testData(expected, path.normalize('/home/contra/test/file.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -92,7 +92,7 @@ describe('gulp-coffee', function() {
 
       coffee()
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/grammar.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/grammar.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -104,7 +104,7 @@ describe('gulp-coffee', function() {
 
       coffee(opts)
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/grammar.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/grammar.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -123,7 +123,7 @@ describe('gulp-coffee', function() {
       stream
         .pipe(coffee({}))
           .on('error', done)
-          .on('data', this.testData(expected, 'test/fixtures/grammar.js', done));
+          .on('data', this.testData(expected, path.normalize('test/fixtures/grammar.js'), done));
     });
 
     it('should compile a file with bare and with source map', function(done) {
@@ -141,7 +141,7 @@ describe('gulp-coffee', function() {
       stream
         .pipe(coffee({bare: true}))
           .on('error', done)
-          .on('data', this.testData(expected, 'test/fixtures/grammar.js', done));
+          .on('data', this.testData(expected, path.normalize('test/fixtures/grammar.js'), done));
     });
 
     it('should compile a file (no header)', function(done) {
@@ -151,7 +151,7 @@ describe('gulp-coffee', function() {
 
       coffee()
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/grammar.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/grammar.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -162,7 +162,7 @@ describe('gulp-coffee', function() {
 
       coffee({header: true})
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/grammar.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/grammar.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -174,7 +174,7 @@ describe('gulp-coffee', function() {
 
       coffee(opts)
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/journo.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/journo.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -185,7 +185,7 @@ describe('gulp-coffee', function() {
 
       coffee()
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/journo.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/journo.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -197,7 +197,7 @@ describe('gulp-coffee', function() {
 
       coffee(opts)
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/journo.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/journo.js'), done))
         .write(createFile(filepath, contents));
     });
 
@@ -216,7 +216,7 @@ describe('gulp-coffee', function() {
       stream
         .pipe(coffee({literate: true}))
           .on('error', done)
-          .on('data', this.testData(expected, 'test/fixtures/journo.js', done));
+          .on('data', this.testData(expected, path.normalize('test/fixtures/journo.js'), done));
     });
 
     it('should compile a literate file with bare and with source map', function(done) {
@@ -235,7 +235,7 @@ describe('gulp-coffee', function() {
       stream
         .pipe(coffee({literate: true, bare: true}))
           .on('error', done)
-          .on('data', this.testData(expected, 'test/fixtures/journo.js', done));
+          .on('data', this.testData(expected, path.normalize('test/fixtures/journo.js'), done));
     });
 
     it('should rename a literate markdown file', function(done) {
@@ -246,7 +246,7 @@ describe('gulp-coffee', function() {
 
       coffee(opts)
         .on('error', done)
-        .on('data', this.testData(expected, 'test/fixtures/journo.js', done))
+        .on('data', this.testData(expected, path.normalize('test/fixtures/journo.js'), done))
         .write(createFile(filepath, contents));
     });
   });
