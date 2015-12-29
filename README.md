@@ -1,4 +1,4 @@
-![status](https://secure.travis-ci.org/wearefractal/gulp-coffee.png?branch=master)
+[![Build Status](https://secure.travis-ci.org/contra/gulp-coffee.png?branch=master)](https://travis-ci.org/contra/gulp-coffee)
 
 ## Information
 
@@ -55,7 +55,7 @@ coffeeStream.on('error', gutil.log);
 
 ```
 
-Since `.on(...)` returns `this`, you can make you can compact it as inline code:
+Since `.on(...)` returns `this`, you can compact it as inline code:
 
 ```javascript
 
