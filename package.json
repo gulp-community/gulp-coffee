@@ -2,9 +2,9 @@
   "name": "gulp-coffee",
   "description": "Compile CoffeeScript files",
   "version": "2.3.2",
-  "homepage": "http://github.com/wearefractal/gulp-coffee",
-  "repository": "git://github.com/wearefractal/gulp-coffee.git",
-  "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
+  "homepage": "http://github.com/contra/gulp-coffee",
+  "repository": "git://github.com/contra/gulp-coffee.git",
+  "author": "Contra <yo@contra.io> (http://contra.io/)",
   "main": "./index.js",
   "keywords": [
     "gulpplugin"
@@ -13,13 +13,13 @@
     "coffee-script": "^1.10.0",
     "gulp-util": "^3.0.2",
     "merge": "^1.2.0",
-    "through2": "^0.6.3",
-    "vinyl-sourcemaps-apply": "^0.1.4"
+    "through2": "^2.0.1",
+    "vinyl-sourcemaps-apply": "^0.2.1"
   },
   "devDependencies": {
-    "gulp-sourcemaps": "^1.3.0",
-    "mocha": "^2.1.0",
-    "should": "^4.6.2"
+    "gulp-sourcemaps": "^2.2.0",
+    "mocha": "^3.0.0",
+    "should": "^11.0.0"
   },
   "scripts": {
     "test": "mocha"

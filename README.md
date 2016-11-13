@@ -23,45 +23,9 @@ var coffee = require('gulp-coffee');
 
 gulp.task('coffee', function() {
   gulp.src('./src/*.coffee')
-    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(coffee({bare: true}))
     .pipe(gulp.dest('./public/'));
 });
-```
-
-### Error handling
-
-gulp-coffee will emit an error for cases such as invalid coffeescript syntax. If uncaught, the error will crash gulp.
-
-You will need to attach a listener (i.e. `.on('error')`) for the error event emitted by gulp-coffee:
-
-```javascript
-var coffeeStream = coffee({bare: true});
-
-// Attach listener
-coffeeStream.on('error', function(err) {});
-```
-
-In addition, you may utilize [gulp-util](https://github.com/wearefractal/gulp-util)'s logging function:
-
-```javascript
-var gutil = require('gulp-util');
-
-// ...
-
-var coffeeStream = coffee({bare: true});
-
-// Attach listener
-coffeeStream.on('error', gutil.log);
-
-```
-
-Since `.on(...)` returns `this`, you can compact it as inline code:
-
-```javascript
-
-gulp.src('./src/*.coffee')
-  .pipe(coffee({bare: true}).on('error', gutil.log))
-  // ...
 ```
 
 ## Options
@@ -69,6 +33,8 @@ gulp.src('./src/*.coffee')
 The options object supports the same options as the standard CoffeeScript compiler
 
 ## Source maps
+
+### gulp 3.x
 
 gulp-coffee can be used in tandem with [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) to generate source maps for the coffee to javascript transition. You will need to initialize [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) prior to running the gulp-coffee compiler and write the source maps after.
 
@@ -91,11 +57,21 @@ var sourcemaps = require('gulp-sourcemaps');
 
 gulp.src('./src/*.coffee')
   .pipe(sourcemaps.init())
-  .pipe(coffee({ bare: true })).on('error', gutil.log)
+  .pipe(coffee({ bare: true }))
   .pipe(sourcemaps.write('./maps'))
   .pipe(gulp.dest('./dest/js'));
 
 // will write the source maps to ./dest/js/maps
+```
+
+### gulp 4.x
+
+In gulp 4, sourcemaps are built-in by default.
+
+```js
+gulp.src('./src/*.coffee', { sourcemaps: true })
+  .pipe(coffee({ bare: true }))
+  .pipe(gulp.dest('./dest/js'));
 ```
 
 ## LICENSE
