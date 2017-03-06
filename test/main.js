@@ -249,5 +249,30 @@ describe('gulp-coffee', function() {
         .on('data', this.testData(expected, path.normalize('test/fixtures/journo.js'), done))
         .write(createFile(filepath, contents));
     });
+
+    it('should accept a custom coffeescript version', function(done) {
+      var filepath = 'test/fixtures/grammar.coffee';
+      var contents = new Buffer(fs.readFileSync(filepath));
+      var wasSpyCalled = false;
+      var opts = {
+        coffee: {
+          compile() {
+            wasSpyCalled = true;
+            return '';
+          }
+        }
+      };
+
+      function assertSpy() {
+        should(wasSpyCalled).equal(true);
+        done();
+      }
+
+      coffee(opts)
+        .on('error', assertSpy)
+        .on('data', this.testData('', path.normalize('test/fixtures/grammar.js'), assertSpy))
+        .write(createFile(filepath, contents));
+
+    })
   });
 });

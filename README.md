@@ -30,7 +30,9 @@ gulp.task('coffee', function() {
 
 ## Options
 
-The options object supports the same options as the standard CoffeeScript compiler
+- `coffee` (optional): A reference to a custom CoffeeScript version/fork (eg. `coffee: require('my-name/coffee-script')`)
+
+Additionally, the options object supports all options that are supported by the standard CoffeeScript compiler.
 
 ## Source maps
 
