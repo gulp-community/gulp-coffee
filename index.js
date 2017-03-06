@@ -1,5 +1,4 @@
 var through = require('through2');
-var coffee = require('coffee-script');
 var gutil = require('gulp-util');
 var applySourceMap = require('vinyl-sourcemaps-apply');
 var path = require('path');
@@ -23,6 +22,7 @@ module.exports = function (opt) {
 
     var options = merge({
       bare: false,
+      coffee: require('coffee-script'),
       header: false,
       sourceMap: !!file.sourceMap,
       sourceRoot: false,
@@ -33,7 +33,7 @@ module.exports = function (opt) {
     }, opt);
 
     try {
-      data = coffee.compile(str, options);
+      data = options.coffee.compile(str, options);
     } catch (err) {
       return cb(new PluginError('gulp-coffee', err));
     }
