@@ -22,7 +22,7 @@ module.exports = function (opt) {
 
     var options = merge({
       bare: false,
-      coffee: require('coffee-script'),
+      coffee: require('coffeescript'),
       header: false,
       sourceMap: !!file.sourceMap,
       sourceRoot: false,
