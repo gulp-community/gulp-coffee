@@ -1,6 +1,6 @@
 var coffee = require('../');
 var should = require('should');
-var coffeescript = require('coffee-script');
+var coffeescript = require('coffeescript');
 var gutil = require('gulp-util');
 var fs = require('fs');
 var path = require('path');
