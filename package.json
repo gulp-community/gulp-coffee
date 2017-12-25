@@ -17,7 +17,7 @@
     "vinyl-sourcemaps-apply": "^0.2.1"
   },
   "devDependencies": {
-    "gulp-sourcemaps": "^2.2.0",
+    "gulp-sourcemaps": "^2.6.2",
     "mocha": "^3.0.0",
     "should": "^11.0.0"
   },
