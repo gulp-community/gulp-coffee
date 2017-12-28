@@ -1,16 +1,16 @@
 var coffee = require('../');
 var should = require('should');
 var coffeescript = require('coffeescript');
-var gutil = require('gulp-util');
 var fs = require('fs');
 var path = require('path');
 var sourcemaps = require('gulp-sourcemaps');
 var stream = require('stream');
+var File = require('vinyl');
 require('mocha');
 
 var createFile = function (filepath, contents) {
   var base = path.dirname(filepath);
-  return new gutil.File({
+  return new File({
     path: filepath,
     base: base,
     cwd: path.dirname(base),

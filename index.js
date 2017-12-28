@@ -1,15 +1,14 @@
 var through = require('through2');
-var gutil = require('gulp-util');
 var applySourceMap = require('vinyl-sourcemaps-apply');
 var path = require('path');
+var replaceExt = require('replace-ext');
+var PluginError = require('plugin-error');
 var merge = require('merge');
-
-var PluginError = gutil.PluginError;
 
 module.exports = function (opt) {
   function replaceExtension(path) {
     path = path.replace(/\.coffee\.md$/, '.litcoffee');
-    return gutil.replaceExtension(path, '.js');
+    return replaceExt(path, '.js');
   }
 
   function transform(file, enc, cb) {
