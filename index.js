@@ -21,7 +21,7 @@ module.exports = function (opt) {
       bare: false,
       coffee: require('coffeescript'),
       header: false,
-      sourceMap: !!file.sourceMap,
+      sourceMap: Boolean(file.sourceMap),
       sourceRoot: false,
       literate: /\.(litcoffee|coffee\.md)$/.test(file.path),
       filename: file.path,
