@@ -2,8 +2,8 @@
   "name": "gulp-coffee",
   "description": "Compile CoffeeScript files",
   "version": "3.0.2",
-  "homepage": "http://github.com/contra/gulp-coffee",
-  "repository": "git://github.com/contra/gulp-coffee.git",
+  "homepage": "http://github.com/gulp-community/gulp-coffee",
+  "repository": "git://github.com/gulp-community/gulp-coffee.git",
   "author": "Contra <yo@contra.io> (http://contra.io/)",
   "main": "./index.js",
   "keywords": [
