@@ -5,7 +5,6 @@ var fs = require('fs');
 var path = require('path');
 var sourcemaps = require('gulp-sourcemaps');
 var File = require('vinyl');
-require('mocha');
 
 var createFile = function (filepath, contents) {
   var base = path.dirname(filepath);
