@@ -1,7 +1,7 @@
 {
   "name": "gulp-coffee",
   "description": "Compile CoffeeScript files",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "homepage": "http://github.com/gulp-community/gulp-coffee",
   "repository": "git://github.com/gulp-community/gulp-coffee.git",
   "author": "Contra <yo@contra.io> (http://contra.io/)",
@@ -11,14 +11,14 @@
   ],
   "dependencies": {
     "coffeescript": "^2.1.0",
-    "plugin-error": "^0.1.2",
+    "plugin-error": "^1.0.0",
     "replace-ext": "^1.0.0",
     "through2": "^2.0.1",
     "vinyl-sourcemaps-apply": "^0.2.1"
   },
   "devDependencies": {
     "gulp-sourcemaps": "^2.6.2",
-    "mocha": "^4.0.0",
+    "mocha": "^5.0.0",
     "should": "^13.0.0",
     "vinyl": "^2.1.0"
   },

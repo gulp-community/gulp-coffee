@@ -17,3 +17,4 @@ npm-debug.log
 node_modules
 *.sublime*
 package-lock.json
+yarn.lock
